@@ -34,7 +34,7 @@ typedef enum _ControlBarUIViewControllerMode {
     
     UITextView *_accessoryview_textview;
     
-    NSString *_text_contents;
+    //NSString *_text_contents;
 
     //UIView *_custom_input_view_1;
     UIToolbar *_controlbar_mode_selection;
@@ -97,15 +97,14 @@ static ControlBarUIViewController *_context;
     _keyboard_animation_duration = 0.5;
     
     [super viewDidAppear:animated];
-    //[self.view addSubview:((UnityAppController*)[UIApplication sharedApplication].delegate).unityView];
+    /*
+    [self.view addSubview:((UnityAppController*)[UIApplication sharedApplication].delegate).unityView];
+    */
     
-    _text_contents = @"TEST TEXT";
 
     _root_activaton_textview = [[UITextView alloc] initWithFrame:CGRectMake(0,0,0,0)];
-    _root_activaton_textview.text = _text_contents;
 	
     _accessoryview_textview = [[UITextView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.width - 60, 25)];
-    _accessoryview_textview.text = _text_contents;
     _accessoryview_textview.textContainer.lineBreakMode = NSLineBreakByCharWrapping;
     [_accessoryview_textview setFont:[UIFont systemFontOfSize:20]];
     _accessoryview_textview.textContainer.lineFragmentPadding = 0;
@@ -146,6 +145,7 @@ static ControlBarUIViewController *_context;
 	
 	_emoji_text_renderer = [[ICEmojiTextRenderer alloc] init];
 	[_emoji_text_renderer set_textview:_accessoryview_textview];
+    [_emoji_text_renderer replace_characters_in_range:NSMakeRange(0, 0) with_string:@""];
 }
 
 -(void)update {
@@ -173,10 +173,49 @@ static ControlBarUIViewController *_context;
 }
 
 -(void)emoji_input:(NSString *)name {
-	[_emoji_text_renderer append_emoji:name];
-	//NSLog(@"%@",name);
+    NSRange pre_range = _accessoryview_textview.selectedRange;
+    [_emoji_text_renderer insert_emoji_in_range:pre_range with_name:name];
+    [self recalculate_textview_layout];
+    [_accessoryview_textview setSelectedRange:NSMakeRange(pre_range.location+1, 0)];
 }
 
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([_root_activaton_textview isFirstResponder] && [_accessoryview_textview canBecomeFirstResponder]) {
+        [_root_activaton_textview resignFirstResponder];
+        [_accessoryview_textview becomeFirstResponder];
+    }
+    [_emoji_text_renderer replace_characters_in_range:range with_string:text];
+    
+    [self recalculate_textview_layout];
+    [_accessoryview_textview setSelectedRange:NSMakeRange(range.location+text.length, 0)];
+	return NO;
+}
+
+-(void)recalculate_textview_layout{
+    [_accessoryview_textview setNeedsLayout];
+    [_accessoryview_textview layoutIfNeeded];
+    
+    int text_rows = [self text_rows];
+    int textview_display_lines = text_rows > 3 ? 3 : text_rows;
+
+    [UIView animateWithDuration:0.1f animations:^(){
+        _accessoryview_textview.frame = CGRectMake(0,0, _accessoryview_textview.frame.size.width, textview_display_lines * 25);
+        _controlbar_mode_selection.frame = CGRectMake(0, textview_display_lines * 25, _controlbar_mode_selection.frame.size.width, _controlbar_mode_selection.frame.size.height);
+        if (_accessoryview_root.constraints.count > 0) ((NSLayoutConstraint*)[[_accessoryview_root constraints] objectAtIndex:0]).constant = _accessoryview_textview.frame.size.height + 25;
+         [_accessoryview_root.superview layoutIfNeeded];
+    } completion:NULL];
+    
+    if (text_rows > textview_display_lines) {
+        [_accessoryview_textview scrollRangeToVisible:_accessoryview_textview.selectedRange];
+    } else {
+        [_accessoryview_textview setContentOffset:CGPointZero animated:NO];
+    }
+}
+
+
+-(int)text_rows {
+    return round( ([_emoji_text_renderer get_text_bounds_for_width:_accessoryview_textview.bounds.size.width].size.height - _accessoryview_textview.textContainerInset.top - _accessoryview_textview.textContainerInset.bottom) / _accessoryview_textview.font.lineHeight );
+}
 
 -(void)controlbar_option1 {
     _root_activaton_textview.inputView = NULL;
@@ -204,39 +243,6 @@ static ControlBarUIViewController *_context;
 	]];
 }
 
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-	//NSLog(@"%@",text);
-	//TODO -- stuff here
-	return YES;
-}
-
--(void)textViewDidChange:(UITextView *)textView {
-    _text_contents = textView.text;
-    if (![_root_activaton_textview.text isEqualToString:_text_contents]) [_root_activaton_textview setText:_text_contents];
-    if (![_accessoryview_textview.text isEqualToString:_text_contents]) [_accessoryview_textview setText:_text_contents];
-
-    int text_rows = [self text_rows];
-    int textview_display_lines = text_rows > 3 ? 3 : text_rows;
-    
-    [UIView animateWithDuration:0.1f animations:^(){
-        _accessoryview_textview.frame = CGRectMake(0,0, _accessoryview_textview.frame.size.width, textview_display_lines * 25);
-        _controlbar_mode_selection.frame = CGRectMake(0, textview_display_lines * 25, _controlbar_mode_selection.frame.size.width, _controlbar_mode_selection.frame.size.height);
-        if (_accessoryview_root.constraints.count > 0) ((NSLayoutConstraint*)[[_accessoryview_root constraints] objectAtIndex:0]).constant = _accessoryview_textview.frame.size.height + 25;
-         [_accessoryview_root.superview layoutIfNeeded];
-    } completion:NULL];
-    
-    if (text_rows > textview_display_lines) {
-        [_accessoryview_textview scrollRangeToVisible:_accessoryview_textview.selectedRange];
-    } else {
-        [_accessoryview_textview setContentOffset:CGPointZero animated:NO];
-    }
-    
-    if ([_root_activaton_textview isFirstResponder] && [_accessoryview_textview canBecomeFirstResponder]) {
-        [_root_activaton_textview resignFirstResponder];
-        [_accessoryview_textview becomeFirstResponder];
-    }
-}
-
 -(void)toggle_native_control_ui:(BOOL)val {
     if (val) {
         [_root_activaton_textview becomeFirstResponder];
@@ -245,7 +251,6 @@ static ControlBarUIViewController *_context;
             _keyboard_mode = KeyboardMode_CloseToOpen;
             _keyboard_animation_t = 0;
         }
-        
         
     } else {
         [_accessoryview_textview resignFirstResponder];
@@ -262,20 +267,9 @@ static ControlBarUIViewController *_context;
     NSLog(@"load_message_json:%@",messageJSON);
 }
 
--(int)text_rows {
-    return round( (_accessoryview_textview.contentSize.height - _accessoryview_textview.textContainerInset.top - _accessoryview_textview.textContainerInset.bottom) / _accessoryview_textview.font.lineHeight );
-}
-
--(NSString*)get_text_contents {
-    return _text_contents;
-}
-
 -(BOOL)prefersStatusBarHidden { return YES; }
-
-//Remain at bottom, also call [self becomeFirstResponder] in view appear
+/*
 -(BOOL)canBecomeFirstResponder{ return YES; }
 -(UIView *)inputAccessoryView{ return _accessoryview_root; }
-
-
-
+*/
 @end

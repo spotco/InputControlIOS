@@ -32,7 +32,7 @@ static TestDisplayUIViewController *_inst;
     [textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(show_controls)]];
     
     _control_view = [[ControlBarUIViewController alloc] init];
-    _control_view.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    _control_view.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     _control_view.view.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:1.0];
     [self addChildViewController:_control_view];
     [self.view addSubview:_control_view.view];
