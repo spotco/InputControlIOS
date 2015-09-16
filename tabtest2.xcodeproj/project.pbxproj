@@ -17,6 +17,10 @@
 		7EF256A11BA7FF2000A05397 /* ControlBarUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256A01BA7FF2000A05397 /* ControlBarUIViewController.m */; };
 		7EF256A41BA8014000A05397 /* ICEmojiKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256A31BA8014000A05397 /* ICEmojiKeyboard.m */; };
 		7EF256AA1BA8160C00A05397 /* ICEmojiTextRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256A91BA8160C00A05397 /* ICEmojiTextRenderer.m */; };
+		D5F7DE171BA8C2DA00417BD0 /* ICButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F7DE161BA8C2DA00417BD0 /* ICButton.m */; };
+		D5F7DE1A1BA8D4EA00417BD0 /* ic_bar_icon_mic.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F7DE181BA8D4EA00417BD0 /* ic_bar_icon_mic.png */; };
+		D5F7DE1B1BA8D4EA00417BD0 /* ic_bar_icon_text.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F7DE191BA8D4EA00417BD0 /* ic_bar_icon_text.png */; };
+		D5F7DE1D1BA8E59F00417BD0 /* ic_bar_icon_emoji.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F7DE1C1BA8E59F00417BD0 /* ic_bar_icon_emoji.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,11 @@
 		7EF256A31BA8014000A05397 /* ICEmojiKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICEmojiKeyboard.m; sourceTree = "<group>"; };
 		7EF256A81BA8160C00A05397 /* ICEmojiTextRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICEmojiTextRenderer.h; sourceTree = "<group>"; };
 		7EF256A91BA8160C00A05397 /* ICEmojiTextRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICEmojiTextRenderer.m; sourceTree = "<group>"; };
+		D5F7DE151BA8C2DA00417BD0 /* ICButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICButton.h; sourceTree = "<group>"; };
+		D5F7DE161BA8C2DA00417BD0 /* ICButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICButton.m; sourceTree = "<group>"; };
+		D5F7DE181BA8D4EA00417BD0 /* ic_bar_icon_mic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bar_icon_mic.png; sourceTree = "<group>"; };
+		D5F7DE191BA8D4EA00417BD0 /* ic_bar_icon_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bar_icon_text.png; sourceTree = "<group>"; };
+		D5F7DE1C1BA8E59F00417BD0 /* ic_bar_icon_emoji.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bar_icon_emoji.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +113,11 @@
 				7EF256A31BA8014000A05397 /* ICEmojiKeyboard.m */,
 				7EF256A81BA8160C00A05397 /* ICEmojiTextRenderer.h */,
 				7EF256A91BA8160C00A05397 /* ICEmojiTextRenderer.m */,
+				D5F7DE151BA8C2DA00417BD0 /* ICButton.h */,
+				D5F7DE161BA8C2DA00417BD0 /* ICButton.m */,
+				D5F7DE181BA8D4EA00417BD0 /* ic_bar_icon_mic.png */,
+				D5F7DE191BA8D4EA00417BD0 /* ic_bar_icon_text.png */,
+				D5F7DE1C1BA8E59F00417BD0 /* ic_bar_icon_emoji.png */,
 			);
 			path = tabtest2;
 			sourceTree = "<group>";
@@ -214,8 +228,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5F7DE1B1BA8D4EA00417BD0 /* ic_bar_icon_text.png in Resources */,
+				D5F7DE1D1BA8E59F00417BD0 /* ic_bar_icon_emoji.png in Resources */,
 				7EF256821BA7FEE100A05397 /* Main.storyboard in Resources */,
 				7EF256871BA7FEE100A05397 /* LaunchScreen.xib in Resources */,
+				D5F7DE1A1BA8D4EA00417BD0 /* ic_bar_icon_mic.png in Resources */,
 				7EF256841BA7FEE100A05397 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,6 +256,7 @@
 				7EF256A11BA7FF2000A05397 /* ControlBarUIViewController.m in Sources */,
 				7EF256791BA7FEE100A05397 /* main.m in Sources */,
 				7EF2569E1BA7FF0A00A05397 /* TestDisplayUIViewController.m in Sources */,
+				D5F7DE171BA8C2DA00417BD0 /* ICButton.m in Sources */,
 				7EF256A41BA8014000A05397 /* ICEmojiKeyboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +454,7 @@
 				7EF256981BA7FEE200A05397 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7EF256991BA7FEE200A05397 /* Build configuration list for PBXNativeTarget "tabtest2Tests" */ = {
 			isa = XCConfigurationList;
@@ -444,6 +463,7 @@
 				7EF2569B1BA7FEE200A05397 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

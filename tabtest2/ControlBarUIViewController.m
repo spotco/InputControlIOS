@@ -1,4 +1,5 @@
 #import "ControlBarUIViewController.h"
+#import "ICButton.h"
 
 #define clampf(_val,_min,_max) (_val > _max ? _max : (_val < _min ? _min : _val))
 float bezier_val_for_t(float p0, float p1, float p2, float p3, float t) {
@@ -31,16 +32,8 @@ typedef enum _ControlBarUIViewControllerMode {
 @implementation ControlBarUIViewController {
     UITextView *_root_activaton_textview;
     UIView *_accessoryview_root;
-    
     UITextView *_accessoryview_textview;
-    
-    //NSString *_text_contents;
-
-    //UIView *_custom_input_view_1;
-    UIToolbar *_controlbar_mode_selection;
-    
     CGRect _input_view_screen_rect;
-    
     NSTimer *_update_timer;
     double _keyboard_animation_duration;
     double _keyboard_animation_t; //0 closed, _keyboard_aniation_duration open
@@ -49,6 +42,14 @@ typedef enum _ControlBarUIViewControllerMode {
 	
 	ICEmojiKeyboard *_emoji_keyboard;
 	ICEmojiTextRenderer *_emoji_text_renderer;
+    
+    ICLabelButton *_done_button;
+    
+    UIView *_controlbar_mode_selection;
+    ICImageButton *_controlbar_text_button;
+    ICImageButton *_controlbar_mic_button;
+    ICImageButton *_controlbar_emoji_button;
+    UIView *_bottom_border;
 }
 
 static ControlBarUIViewController *_context;
@@ -108,14 +109,14 @@ static ControlBarUIViewController *_context;
     _accessoryview_textview.textContainer.lineBreakMode = NSLineBreakByCharWrapping;
     [_accessoryview_textview setFont:[UIFont systemFontOfSize:20]];
     _accessoryview_textview.textContainer.lineFragmentPadding = 0;
-    _accessoryview_textview.textContainerInset = UIEdgeInsetsZero;
-    _accessoryview_textview.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
+    _accessoryview_textview.textContainerInset = UIEdgeInsetsMake(3, 3, 3, 3);
+    _accessoryview_textview.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     
     [_accessoryview_textview setDelegate:self];
     [_root_activaton_textview setDelegate:self];
     
     _accessoryview_root = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 50)];
-    _accessoryview_root.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1.0];
+    _accessoryview_root.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     _accessoryview_root.clipsToBounds = YES;
     _accessoryview_root.autoresizesSubviews = NO;
     
@@ -128,24 +129,49 @@ static ControlBarUIViewController *_context;
     
     [self.view addSubview:_root_activaton_textview];
     
-    _controlbar_mode_selection = [[UIToolbar alloc] init];
-    _controlbar_mode_selection.frame = CGRectMake(0, 25, [UIScreen mainScreen].bounds.size.width, 25);
-    _controlbar_mode_selection.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1];
-    _controlbar_mode_selection.barTintColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1];
-    _controlbar_mode_selection.clipsToBounds = YES;
-    
+    _controlbar_mode_selection = [[UIView alloc] initWithFrame:CGRectMake(0, 25, [UIScreen mainScreen].bounds.size.width, 30)];
     [_accessoryview_root addSubview:_controlbar_mode_selection];
-    [_controlbar_mode_selection setItems:@[
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(controlbar_option1)],
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(controlbar_option2)]
-    ] animated:YES];
-	
+    
+    _controlbar_emoji_button = [[ICImageButton alloc] init];
+    [_controlbar_emoji_button set_image:[[UIImage imageNamed:@"ic_bar_icon_emoji"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    [_controlbar_emoji_button setFrame:CGRectMake(0, 0, 30, 30)];
+    [_controlbar_emoji_button set_pressed:[Callback cons_id:self selector:@selector(controlbar_option_emojimode)]];
+    [_controlbar_mode_selection addSubview:_controlbar_emoji_button];
+    
+    _controlbar_mic_button = [[ICImageButton alloc] init];
+    [_controlbar_mic_button set_image:[[UIImage imageNamed:@"ic_bar_icon_mic"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    [_controlbar_mic_button setFrame:CGRectMake(35, 0, 30, 30)];
+    [_controlbar_mic_button set_pressed:[Callback cons_id:self selector:@selector(controlbar_option_recordmode)]];
+    [_controlbar_mode_selection addSubview:_controlbar_mic_button];
+    
+    _controlbar_text_button = [[ICImageButton alloc] init];
+    [_controlbar_text_button set_image:[[UIImage imageNamed:@"ic_bar_icon_text"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    [_controlbar_text_button setFrame:CGRectMake(70, 0, 30, 30)];
+    [_controlbar_text_button set_pressed:[Callback cons_id:self selector:@selector(controlbar_option_textmode)]];
+    [_controlbar_mode_selection addSubview:_controlbar_text_button];
+    
 	_emoji_keyboard = [[ICEmojiKeyboard alloc] init];
 	[_emoji_keyboard set_input_listener:self];
 	
 	_emoji_text_renderer = [[ICEmojiTextRenderer alloc] init];
 	[_emoji_text_renderer set_textview:_accessoryview_textview];
     [_emoji_text_renderer replace_characters_in_range:NSMakeRange(0, 0) with_string:@""];
+    
+    _done_button = [[ICLabelButton alloc] init];
+    _done_button.frame = CGRectMake(0, 0, 50, 50);
+    [_done_button set_label:@"Done"];
+    [_done_button set_pressed:[Callback cons_id:self selector:@selector(done_button_press)]];
+    [_accessoryview_root addSubview:_done_button];
+    
+    _bottom_border = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _controlbar_mode_selection.frame.size.width, 2)];
+    [_bottom_border setBackgroundColor:[UIColor colorWithRed:0.74 green:0.74 blue:0.74 alpha:1]];
+    [_accessoryview_root addSubview:_bottom_border];
+    
+    [self recalculate_textview_layout];
+}
+
+-(void)done_button_press {
+    NSLog(@"done");
 }
 
 -(void)update {
@@ -179,15 +205,23 @@ static ControlBarUIViewController *_context;
     [_accessoryview_textview setSelectedRange:NSMakeRange(pre_range.location+1, 0)];
 }
 
+static bool __rentrant_lock = NO;
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if ([_root_activaton_textview isFirstResponder] && [_accessoryview_textview canBecomeFirstResponder]) {
-        [_root_activaton_textview resignFirstResponder];
-        [_accessoryview_textview becomeFirstResponder];
+    if (__rentrant_lock == NO) {
+        __rentrant_lock = YES;
+        if ([_root_activaton_textview isFirstResponder] && [_accessoryview_textview canBecomeFirstResponder]) {
+            [_root_activaton_textview resignFirstResponder];
+            [_accessoryview_textview becomeFirstResponder];
+            range = NSMakeRange(_accessoryview_textview.attributedText.length, 0);
+            [_accessoryview_textview setSelectedRange:range];
+            [_emoji_text_renderer replace_characters_in_range:range with_string:text];
+        } else {
+            [_emoji_text_renderer replace_characters_in_range:range with_string:text];
+            [_accessoryview_textview setSelectedRange:NSMakeRange(range.location+text.length, 0)];
+        }
+        [self recalculate_textview_layout];
+        __rentrant_lock = NO;
     }
-    [_emoji_text_renderer replace_characters_in_range:range with_string:text];
-    
-    [self recalculate_textview_layout];
-    [_accessoryview_textview setSelectedRange:NSMakeRange(range.location+text.length, 0)];
 	return NO;
 }
 
@@ -196,13 +230,21 @@ static ControlBarUIViewController *_context;
     [_accessoryview_textview layoutIfNeeded];
     
     int text_rows = [self text_rows];
+    if (text_rows == 0) text_rows = 1;
     int textview_display_lines = text_rows > 3 ? 3 : text_rows;
 
     [UIView animateWithDuration:0.1f animations:^(){
-        _accessoryview_textview.frame = CGRectMake(0,0, _accessoryview_textview.frame.size.width, textview_display_lines * 25);
-        _controlbar_mode_selection.frame = CGRectMake(0, textview_display_lines * 25, _controlbar_mode_selection.frame.size.width, _controlbar_mode_selection.frame.size.height);
-        if (_accessoryview_root.constraints.count > 0) ((NSLayoutConstraint*)[[_accessoryview_root constraints] objectAtIndex:0]).constant = _accessoryview_textview.frame.size.height + 25;
-         [_accessoryview_root.superview layoutIfNeeded];
+        _accessoryview_textview.frame = CGRectMake(0,0, _accessoryview_textview.frame.size.width, textview_display_lines * 25 + 6);
+        _controlbar_mode_selection.frame = CGRectMake(0, _accessoryview_textview.frame.size.height, _controlbar_mode_selection.frame.size.width, _controlbar_mode_selection.frame.size.height);
+        if (_accessoryview_root.constraints.count > 0) {
+            ((NSLayoutConstraint*)[[_accessoryview_root constraints] objectAtIndex:0]).constant = _accessoryview_textview.frame.size.height + _controlbar_mode_selection.frame.size.height;
+        }
+        
+        [_done_button setFrame:CGRectMake(_accessoryview_textview.frame.size.width, _accessoryview_textview.frame.origin.y, _accessoryview_root.frame.size.width-_accessoryview_textview.frame.size.width, _accessoryview_textview.frame.size.height)];
+        
+        _accessoryview_root.frame = CGRectMake(_accessoryview_root.frame.origin.x, _accessoryview_root.frame.origin.y, _accessoryview_root.frame.size.width, _accessoryview_textview.frame.size.height + _controlbar_mode_selection.frame.size.height);
+        _bottom_border.frame = CGRectMake(0, _accessoryview_root.frame.size.height-_bottom_border.frame.size.height, _bottom_border.frame.size.width, _bottom_border.frame.size.height);
+        [_accessoryview_root.superview layoutIfNeeded];
     } completion:NULL];
     
     if (text_rows > textview_display_lines) {
@@ -217,14 +259,18 @@ static ControlBarUIViewController *_context;
     return round( ([_emoji_text_renderer get_text_bounds_for_width:_accessoryview_textview.bounds.size.width].size.height - _accessoryview_textview.textContainerInset.top - _accessoryview_textview.textContainerInset.bottom) / _accessoryview_textview.font.lineHeight );
 }
 
--(void)controlbar_option1 {
+-(void)controlbar_option_textmode {
     _root_activaton_textview.inputView = NULL;
     _accessoryview_textview.inputView = NULL;
     [_root_activaton_textview reloadInputViews];
     [_accessoryview_textview reloadInputViews];
 }
 
--(void)controlbar_option2 {
+-(void)controlbar_option_recordmode {
+    NSLog(@"record mode");
+}
+
+-(void)controlbar_option_emojimode {
 	_root_activaton_textview.inputView = _emoji_keyboard.view;
 	_accessoryview_textview.inputView = _emoji_keyboard.view;
 	[_root_activaton_textview reloadInputViews];

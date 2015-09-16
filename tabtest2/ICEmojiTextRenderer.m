@@ -1,11 +1,3 @@
-//
-//  ICEmojiTextRenderer.m
-//  tabtest2
-//
-//  Created by spotco on 15/09/2015.
-//  Copyright (c) 2015 spotco. All rights reserved.
-//
-
 #import "ICEmojiTextRenderer.h"
 
 @interface ICCustomEmojiTextAttachment : NSTextAttachment
@@ -45,7 +37,7 @@
 -(void)insert_emoji_in_range:(NSRange)range with_name:(NSString*)name {
 	UIImage *image_data = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://spotcos.com/et/highfive.png"]]];
 	NSTextAttachment *image_attachment = [[ICCustomEmojiTextAttachment alloc] init];
-	[image_attachment setImage:[UIImage imageWithCGImage:image_data.CGImage scale:10 orientation:UIImageOrientationUp]];
+	[image_attachment setImage:[UIImage imageWithCGImage:image_data.CGImage scale:12 orientation:UIImageOrientationUp]];
 	NSAttributedString *emoji = [NSAttributedString attributedStringWithAttachment:image_attachment];
     [_str_buf replaceCharactersInRange:range withAttributedString:emoji];
 	[self render_text];
