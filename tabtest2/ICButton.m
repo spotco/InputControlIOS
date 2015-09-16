@@ -84,11 +84,15 @@
 
 @implementation ICImageButton {
     UIImageView *_image;
+    UIColor *_color_neutral;
+    UIColor *_color_down;
 }
 -(void)set_image:(UIImage*)img {
     if (_image == NULL) {
         _image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         [self addSubview:_image];
+        _color_neutral = [UIColor colorWithRed:0.2 green:0.819 blue:0.803 alpha:1.0];
+        _color_down = [UIColor colorWithRed:0.1 green:0.4 blue:0.4 alpha:1.0];
         [self proc_neutral];
     }
     [_image setImage:img];
@@ -99,11 +103,19 @@
 }
 -(void)proc_neutral {
     [super proc_neutral];
-    [_image setTintColor:[UIColor colorWithRed:0.2 green:0.819 blue:0.803 alpha:1.0]];
+    [_image setTintColor:_color_neutral];
 }
 -(void)proc_down {
     [super proc_down];
-    [_image setTintColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.4 alpha:1.0]];
+    [_image setTintColor:_color_down];
+}
+-(void)img_scale_x:(float)x y:(float)y {
+    _image.transform = CGAffineTransformMakeScale(x,y);
+}
+-(void)set_color_neutral:(UIColor *)neutral down:(UIColor *)down {
+    _color_neutral = neutral;
+    _color_down = down;
+    [self proc_neutral];
 }
 @end
 

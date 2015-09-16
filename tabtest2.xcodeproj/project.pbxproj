@@ -21,6 +21,8 @@
 		D5F7DE1A1BA8D4EA00417BD0 /* ic_bar_icon_mic.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F7DE181BA8D4EA00417BD0 /* ic_bar_icon_mic.png */; };
 		D5F7DE1B1BA8D4EA00417BD0 /* ic_bar_icon_text.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F7DE191BA8D4EA00417BD0 /* ic_bar_icon_text.png */; };
 		D5F7DE1D1BA8E59F00417BD0 /* ic_bar_icon_emoji.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F7DE1C1BA8E59F00417BD0 /* ic_bar_icon_emoji.png */; };
+		D5F7DE201BA8EB9D00417BD0 /* ic_keyboard_add_dialogue_bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F7DE1E1BA8EB9D00417BD0 /* ic_keyboard_add_dialogue_bubble.png */; };
+		D5F7DE211BA8EB9D00417BD0 /* ic_keyboard_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F7DE1F1BA8EB9D00417BD0 /* ic_keyboard_delete.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		D5F7DE181BA8D4EA00417BD0 /* ic_bar_icon_mic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bar_icon_mic.png; sourceTree = "<group>"; };
 		D5F7DE191BA8D4EA00417BD0 /* ic_bar_icon_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bar_icon_text.png; sourceTree = "<group>"; };
 		D5F7DE1C1BA8E59F00417BD0 /* ic_bar_icon_emoji.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bar_icon_emoji.png; sourceTree = "<group>"; };
+		D5F7DE1E1BA8EB9D00417BD0 /* ic_keyboard_add_dialogue_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_keyboard_add_dialogue_bubble.png; sourceTree = "<group>"; };
+		D5F7DE1F1BA8EB9D00417BD0 /* ic_keyboard_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_keyboard_delete.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +122,8 @@
 				D5F7DE181BA8D4EA00417BD0 /* ic_bar_icon_mic.png */,
 				D5F7DE191BA8D4EA00417BD0 /* ic_bar_icon_text.png */,
 				D5F7DE1C1BA8E59F00417BD0 /* ic_bar_icon_emoji.png */,
+				D5F7DE1E1BA8EB9D00417BD0 /* ic_keyboard_add_dialogue_bubble.png */,
+				D5F7DE1F1BA8EB9D00417BD0 /* ic_keyboard_delete.png */,
 			);
 			path = tabtest2;
 			sourceTree = "<group>";
@@ -228,12 +234,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5F7DE201BA8EB9D00417BD0 /* ic_keyboard_add_dialogue_bubble.png in Resources */,
 				D5F7DE1B1BA8D4EA00417BD0 /* ic_bar_icon_text.png in Resources */,
 				D5F7DE1D1BA8E59F00417BD0 /* ic_bar_icon_emoji.png in Resources */,
 				7EF256821BA7FEE100A05397 /* Main.storyboard in Resources */,
 				7EF256871BA7FEE100A05397 /* LaunchScreen.xib in Resources */,
 				D5F7DE1A1BA8D4EA00417BD0 /* ic_bar_icon_mic.png in Resources */,
 				7EF256841BA7FEE100A05397 /* Images.xcassets in Resources */,
+				D5F7DE211BA8EB9D00417BD0 /* ic_keyboard_delete.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

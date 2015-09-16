@@ -19,6 +19,8 @@
 
 @interface ICImageButton : ICButton
 -(void)set_image:(UIImage*)img;
+-(void)img_scale_x:(float)x y:(float)y;
+-(void)set_color_neutral:(UIColor*)neutral down:(UIColor*)down;
 @end
 
 @interface ICLabelButton : ICButton
