@@ -6,9 +6,8 @@
 @end
 
 @interface ICEmojiEntry : NSObject
-+(ICEmojiEntry*)cons_name:(NSString*)name url:(NSString*)url;
++(ICEmojiEntry*)cons_name:(NSString*)name;
 -(NSString*)get_name;
--(NSString*)get_url;
 @end
 
 @interface ICEmojiKeyboard : UIViewController <ICEmojiInputListener>

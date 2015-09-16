@@ -1,26 +1,5 @@
 #import "ICEmojiTextRenderer.h"
-
-@interface ICCustomEmojiTextAttachment : NSTextAttachment
--(ICCustomEmojiTextAttachment*)set_name:(NSString*)name;
--(NSString*)get_name;
-@end
-@implementation ICCustomEmojiTextAttachment {
-	NSString *_name;
-}
--(CGRect)attachmentBoundsForTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(CGRect)lineFrag glyphPosition:(CGPoint)position characterIndex:(NSUInteger)charIndex {
-    CGRect bounds;
-    bounds.origin = CGPointMake(0, -5);
-    bounds.size = self.image.size;
-    return bounds;
-}
--(ICCustomEmojiTextAttachment*)set_name:(NSString*)name {
-	_name = name;
-	return self;
-}
--(NSString*)get_name {
-	return _name;
-}
-@end
+#import "ICEmojiTextureCache.h"
 
 @implementation ICEmojiTextRenderer {
 	NSMutableAttributedString *_str_buf;
@@ -50,10 +29,7 @@
 	[self render_text];
 }
 -(void)_insert_emoji_in_range:(NSRange)range with_name:(NSString*)name {
-	UIImage *image_data = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://spotcos.com/et/highfive.png"]]];
-	NSTextAttachment *image_attachment = [[[ICCustomEmojiTextAttachment alloc] init] set_name:name];
-	[image_attachment setImage:[UIImage imageWithCGImage:image_data.CGImage scale:12 orientation:UIImageOrientationUp]];
-	NSAttributedString *emoji = [NSAttributedString attributedStringWithAttachment:image_attachment];
+	NSAttributedString *emoji = [NSAttributedString attributedStringWithAttachment:[[ICEmojiTextureCache instance] get_image_attachment_for_name:@"HighFive"]];
     [_str_buf replaceCharactersInRange:range withAttributedString:emoji];
 }
 -(void)replace_characters_in_range:(NSRange)range with_string:(NSString *)string {

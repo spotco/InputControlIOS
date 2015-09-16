@@ -277,15 +277,15 @@ static bool __rentrant_lock = NO;
     [_accessoryview_textview reloadInputViews];
 	
 	[_emoji_keyboard i_cons:@[
-		[ICEmojiEntry cons_name:@"test1" url:@"http://spotcos.com/et/highfive.png"],
-		[ICEmojiEntry cons_name:@"test2" url:@"http://spotcos.com/et/highfive.png"],
-		[ICEmojiEntry cons_name:@"test3" url:@"http://spotcos.com/et/highfive.png"],
-		[ICEmojiEntry cons_name:@"test4" url:@"http://spotcos.com/et/highfive.png"],
-		[ICEmojiEntry cons_name:@"test5" url:@"http://spotcos.com/et/highfive.png"],
-		[ICEmojiEntry cons_name:@"test6" url:@"http://spotcos.com/et/highfive.png"],
-		[ICEmojiEntry cons_name:@"test7" url:@"http://spotcos.com/et/highfive.png"],
-		[ICEmojiEntry cons_name:@"test8" url:@"http://spotcos.com/et/highfive.png"],
-		[ICEmojiEntry cons_name:@"test9" url:@"http://spotcos.com/et/highfive.png"]
+		[ICEmojiEntry cons_name:@"HighFive"],
+		[ICEmojiEntry cons_name:@"HighFive"],
+		[ICEmojiEntry cons_name:@"HighFive"],
+		[ICEmojiEntry cons_name:@"HighFive"],
+		[ICEmojiEntry cons_name:@"HighFive"],
+		[ICEmojiEntry cons_name:@"HighFive"],
+		[ICEmojiEntry cons_name:@"HighFive"],
+		[ICEmojiEntry cons_name:@"HighFive"],
+		[ICEmojiEntry cons_name:@"HighFive"]
 	]];
 }
 

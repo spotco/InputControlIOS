@@ -8,6 +8,7 @@
 
 #import "TestDisplayUIViewController.h"
 #import "ControlBarUIViewController.h"
+#import "ICEmojiTextureCache.h"
 
 @implementation TestDisplayUIViewController {
     ControlBarUIViewController *_control_view;
@@ -16,6 +17,7 @@
 static TestDisplayUIViewController *_inst;
 
 -(void)viewDidAppear:(BOOL)animated {
+    [[ICEmojiTextureCache instance] add_image:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://spotcos.com/et/highfive.png"]]] for_name:@"HighFive"];
     _inst = self;
     NSLog(@"testdisplayuiviewcontroller appear");
     self.view.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.8 alpha:1.0];

@@ -1,24 +1,23 @@
 
 #import "ICEmojiKeyboard.h"
 #import "ICButton.h"
+#import "ICEmojiTextureCache.h"
 
 @implementation ICEmojiEntry {
-	NSString *_name, *_url;
+	NSString *_name;
 }
-+(ICEmojiEntry*)cons_name:(NSString *)name url:(NSString *)url {
-	return [[[ICEmojiEntry alloc] init] i_cons_name:name url:url];
++(ICEmojiEntry*)cons_name:(NSString *)name {
+	return [[[ICEmojiEntry alloc] init] i_cons_name:name];
 }
--(ICEmojiEntry*)i_cons_name:(NSString *)name url:(NSString *)url {
+-(ICEmojiEntry*)i_cons_name:(NSString *)name {
 	_name = name;
-	_url = url;
 	return self;
 }
 -(NSString*)get_name { return _name; }
--(NSString*)get_url { return _url; }
 @end
 
 @interface ICEmojiKeyboardKey : UIView
-+(ICEmojiKeyboardKey*)cons_name:(NSString*)name url:(NSString*)url;
++(ICEmojiKeyboardKey*)cons_name:(NSString *)name;
 -(void)set_input_listener:(id<ICEmojiInputListener>)listener;
 @end
 @implementation ICEmojiKeyboardKey {
@@ -28,17 +27,17 @@
 	NSString *_name;
 	id<ICEmojiInputListener> _input_listener;
 }
-+(ICEmojiKeyboardKey*)cons_name:(NSString *)name url:(NSString *)url {
-	return [[[ICEmojiKeyboardKey alloc] init] i_cons_name:name url:url];
++(ICEmojiKeyboardKey*)cons_name:(NSString *)name {
+	return [[[ICEmojiKeyboardKey alloc] init] i_cons_name:name];
 }
--(ICEmojiKeyboardKey*)i_cons_name:(NSString *)name url:(NSString *)url {
+-(ICEmojiKeyboardKey*)i_cons_name:(NSString *)name {
 	self.frame = CGRectMake(0, 0, 75, 75);
 	self.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
 	self.multipleTouchEnabled = NO;
 	_name = name;
 	
-	UIImage *image_data = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
-	_image = [[UIImageView alloc] initWithImage:image_data];
+	UIImage *image_data = [[ICEmojiTextureCache instance] get_image_for_name:name];
+    _image = [[UIImageView alloc] initWithImage:image_data];
 	_image.frame = CGRectMake(0, 0, 50, 50);
 	_image.center = CGPointMake(self.frame.size.width/2,self.frame.size.height/2);
 	[self addSubview:_image];
@@ -125,7 +124,7 @@
 	_keyboard_keys = [NSMutableArray array];
 	for (int i = 0; i < emoji_entries.count; i++) {
 		ICEmojiEntry *itr_entry = emoji_entries[i];
-		ICEmojiKeyboardKey *itr_kbkey = [ICEmojiKeyboardKey cons_name:itr_entry.get_name url:itr_entry.get_url];
+		ICEmojiKeyboardKey *itr_kbkey = [ICEmojiKeyboardKey cons_name:itr_entry.get_name];
 		itr_kbkey.frame = CGRectMake(layout_x, layout_y, itr_kbkey.frame.size.width, itr_kbkey.frame.size.height);
 		
 		if (layout_y > 0) {
