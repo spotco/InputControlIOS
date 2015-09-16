@@ -310,12 +310,19 @@ static bool __rentrant_lock = NO;
 }
 
 -(void)load_message_json:(NSString *)messageJSON {
-    NSLog(@"load_message_json:%@",messageJSON);
+	[_emoji_text_renderer set_json:messageJSON];
+	[self recalculate_textview_layout];
+}
+
+-(NSString*)out_message_json {
+	return [_emoji_text_renderer get_json];
 }
 
 -(BOOL)prefersStatusBarHidden { return YES; }
+
+@end
+
 /*
 -(BOOL)canBecomeFirstResponder{ return YES; }
 -(UIView *)inputAccessoryView{ return _accessoryview_root; }
 */
-@end

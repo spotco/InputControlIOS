@@ -13,5 +13,7 @@
 @interface ControlBarUIViewController : UIViewController <UITextViewDelegate,ICEmojiInputListener>
 
 -(void)toggle_native_control_ui:(BOOL)val;
+-(void)load_message_json:(NSString *)messageJSON;
+-(NSString*)out_message_json;
 
 @end
