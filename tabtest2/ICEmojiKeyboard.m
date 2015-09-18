@@ -2,6 +2,7 @@
 #import "ICEmojiKeyboard.h"
 #import "ICButton.h"
 #import "ICEmojiTextureCache.h"
+#import "ICRootViewController.h"
 
 @implementation ICEmojiEntry {
 	NSString *_name;
@@ -88,7 +89,7 @@
 	self = [super init];
 	
 	self.view = [[UIView alloc] init];
-	[self.view setBounds:CGRectMake(0, 0, 0, 200)];
+	[self.view setBounds:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 200)];
 	[self.view setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]];
 	
 	_scroll_view = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 50, 0, 150)];
@@ -98,7 +99,7 @@
 	return self;
 }
 
--(void)i_cons:(NSArray*)emoji_entries {
+-(void)i_cons:(NSArray*)emoji_names {
 	if (_keyboard_keys != NULL) return;
     
     _add_dialogue_left_button = [[ICImageButton alloc] initWithFrame:CGRectMake(0, 3.75, 50, 42.5)];
@@ -122,9 +123,9 @@
 	float layout_x = 0;
 	float layout_y = 0;
 	_keyboard_keys = [NSMutableArray array];
-	for (int i = 0; i < emoji_entries.count; i++) {
-		ICEmojiEntry *itr_entry = emoji_entries[i];
-		ICEmojiKeyboardKey *itr_kbkey = [ICEmojiKeyboardKey cons_name:itr_entry.get_name];
+	for (int i = 0; i < emoji_names.count; i++) {
+		NSString *itr_entry = emoji_names[i];
+		ICEmojiKeyboardKey *itr_kbkey = [ICEmojiKeyboardKey cons_name:itr_entry];
 		itr_kbkey.frame = CGRectMake(layout_x, layout_y, itr_kbkey.frame.size.width, itr_kbkey.frame.size.height);
 		
 		if (layout_y > 0) {
@@ -145,15 +146,15 @@
 }
 
 -(void)add_dialogue_left_pressed {
-    NSLog(@"dialogue_left_pressed");
+    [[ICRootViewController context] enqueue_button_press:@"add_left"];
 }
 
 -(void)add_dialogue_right_pressed {
-    NSLog(@"dialogue_right_pressed");
+    [[ICRootViewController context] enqueue_button_press:@"add_right"];
 }
 
 -(void)delete_pressed {
-    NSLog(@"delete");
+    [[ICRootViewController context] delete_button_pressed];
 }
 
 -(void)emoji_input:(NSString*)name {

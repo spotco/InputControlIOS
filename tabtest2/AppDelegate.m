@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "TestDisplayUIViewController.h"
-#import "ControlBarUIViewController.h"
 
 @interface AppDelegate ()
 

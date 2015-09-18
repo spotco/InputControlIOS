@@ -7,11 +7,11 @@
 //
 
 #import "TestDisplayUIViewController.h"
-#import "ControlBarUIViewController.h"
+#import "ICRootViewController.h"
 #import "ICEmojiTextureCache.h"
 
 @implementation TestDisplayUIViewController {
-    ControlBarUIViewController *_control_view;
+    ICRootViewController *_control_view;
 }
 
 static TestDisplayUIViewController *_inst;
@@ -52,7 +52,7 @@ static TestDisplayUIViewController *_inst;
 	[self.view addSubview:textView];
 	[textView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(print_json)]];
 	
-    _control_view = [[ControlBarUIViewController alloc] init];
+    _control_view = [[ICRootViewController alloc] init];
     _control_view.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     _control_view.view.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:1.0];
     [self addChildViewController:_control_view];

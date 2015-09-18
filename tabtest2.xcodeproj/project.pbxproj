@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E1DB6681BABFF6100CF726C /* ICRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DB6671BABFF6100CF726C /* ICRootViewController.m */; };
 		7EF256791BA7FEE100A05397 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256781BA7FEE100A05397 /* main.m */; };
 		7EF2567C1BA7FEE100A05397 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2567B1BA7FEE100A05397 /* AppDelegate.m */; };
 		7EF256821BA7FEE100A05397 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EF256801BA7FEE100A05397 /* Main.storyboard */; };
@@ -14,7 +15,6 @@
 		7EF256871BA7FEE100A05397 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EF256851BA7FEE100A05397 /* LaunchScreen.xib */; };
 		7EF256931BA7FEE200A05397 /* tabtest2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256921BA7FEE200A05397 /* tabtest2Tests.m */; };
 		7EF2569E1BA7FF0A00A05397 /* TestDisplayUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2569D1BA7FF0A00A05397 /* TestDisplayUIViewController.m */; };
-		7EF256A11BA7FF2000A05397 /* ControlBarUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256A01BA7FF2000A05397 /* ControlBarUIViewController.m */; };
 		7EF256A41BA8014000A05397 /* ICEmojiKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256A31BA8014000A05397 /* ICEmojiKeyboard.m */; };
 		7EF256AA1BA8160C00A05397 /* ICEmojiTextRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256A91BA8160C00A05397 /* ICEmojiTextRenderer.m */; };
 		D56E8FF31BA9EA38008FA7C2 /* ICEmojiTextureCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D56E8FF21BA9EA38008FA7C2 /* ICEmojiTextureCache.m */; };
@@ -37,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E1DB6661BABFF6100CF726C /* ICRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICRootViewController.h; sourceTree = "<group>"; };
+		7E1DB6671BABFF6100CF726C /* ICRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICRootViewController.m; sourceTree = "<group>"; };
 		7EF256731BA7FEE100A05397 /* tabtest2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tabtest2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EF256771BA7FEE100A05397 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EF256781BA7FEE100A05397 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -50,8 +52,6 @@
 		7EF256921BA7FEE200A05397 /* tabtest2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tabtest2Tests.m; sourceTree = "<group>"; };
 		7EF2569C1BA7FF0A00A05397 /* TestDisplayUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDisplayUIViewController.h; sourceTree = "<group>"; };
 		7EF2569D1BA7FF0A00A05397 /* TestDisplayUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestDisplayUIViewController.m; sourceTree = "<group>"; };
-		7EF2569F1BA7FF2000A05397 /* ControlBarUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlBarUIViewController.h; sourceTree = "<group>"; };
-		7EF256A01BA7FF2000A05397 /* ControlBarUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlBarUIViewController.m; sourceTree = "<group>"; };
 		7EF256A21BA8014000A05397 /* ICEmojiKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICEmojiKeyboard.h; sourceTree = "<group>"; };
 		7EF256A31BA8014000A05397 /* ICEmojiKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICEmojiKeyboard.m; sourceTree = "<group>"; };
 		7EF256A81BA8160C00A05397 /* ICEmojiTextRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICEmojiTextRenderer.h; sourceTree = "<group>"; };
@@ -114,14 +114,14 @@
 				7EF256761BA7FEE100A05397 /* Supporting Files */,
 				7EF2569C1BA7FF0A00A05397 /* TestDisplayUIViewController.h */,
 				7EF2569D1BA7FF0A00A05397 /* TestDisplayUIViewController.m */,
-				7EF2569F1BA7FF2000A05397 /* ControlBarUIViewController.h */,
-				7EF256A01BA7FF2000A05397 /* ControlBarUIViewController.m */,
 				7EF256A21BA8014000A05397 /* ICEmojiKeyboard.h */,
 				7EF256A31BA8014000A05397 /* ICEmojiKeyboard.m */,
 				7EF256A81BA8160C00A05397 /* ICEmojiTextRenderer.h */,
 				7EF256A91BA8160C00A05397 /* ICEmojiTextRenderer.m */,
 				D5F7DE151BA8C2DA00417BD0 /* ICButton.h */,
 				D5F7DE161BA8C2DA00417BD0 /* ICButton.m */,
+				7E1DB6661BABFF6100CF726C /* ICRootViewController.h */,
+				7E1DB6671BABFF6100CF726C /* ICRootViewController.m */,
 				D5F7DE181BA8D4EA00417BD0 /* ic_bar_icon_mic.png */,
 				D5F7DE191BA8D4EA00417BD0 /* ic_bar_icon_text.png */,
 				D5F7DE1C1BA8E59F00417BD0 /* ic_bar_icon_emoji.png */,
@@ -208,6 +208,7 @@
 				TargetAttributes = {
 					7EF256721BA7FEE100A05397 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = W6R477JQ9S;
 					};
 					7EF2568B1BA7FEE200A05397 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -264,9 +265,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E1DB6681BABFF6100CF726C /* ICRootViewController.m in Sources */,
 				7EF256AA1BA8160C00A05397 /* ICEmojiTextRenderer.m in Sources */,
 				7EF2567C1BA7FEE100A05397 /* AppDelegate.m in Sources */,
-				7EF256A11BA7FF2000A05397 /* ControlBarUIViewController.m in Sources */,
 				7EF256791BA7FEE100A05397 /* main.m in Sources */,
 				7EF2569E1BA7FF0A00A05397 /* TestDisplayUIViewController.m in Sources */,
 				D56E8FF31BA9EA38008FA7C2 /* ICEmojiTextureCache.m in Sources */,
@@ -399,7 +400,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = tabtest2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -409,7 +412,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = tabtest2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

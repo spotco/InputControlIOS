@@ -1,5 +1,10 @@
-#import "ControlBarUIViewController.h"
+#import "ICRootViewController.h"
+/*
+#import "UnityView.h"
+#import "UnityAppController+ViewHandling.h"
+*/
 #import "ICButton.h"
+#import "ICEmojiTextureCache.h"
 
 #define clampf(_val,_min,_max) (_val > _max ? _max : (_val < _min ? _min : _val))
 float bezier_val_for_t(float p0, float p1, float p2, float p3, float t) {
@@ -24,12 +29,7 @@ typedef enum _KeyboardMode {
     KeyboardMode_CloseToOpen
 } KeyboardMode;
 
-typedef enum _ControlBarUIViewControllerMode {
-    ControlBarUIViewControllerMode_Closed,
-    ControlBarUIViewControllerMode_Open
-} ControlBarUIViewControllerMode;
-
-@implementation ControlBarUIViewController {
+@implementation ICRootViewController {
     UITextView *_root_activaton_textview;
     UIView *_accessoryview_root;
     UITextView *_accessoryview_textview;
@@ -50,10 +50,12 @@ typedef enum _ControlBarUIViewControllerMode {
     ICImageButton *_controlbar_mic_button;
     ICImageButton *_controlbar_emoji_button;
     UIView *_bottom_border;
+    
+    NSMutableArray *_enqueued_button_presses;
 }
 
-static ControlBarUIViewController *_context;
-+(ControlBarUIViewController*)context { return _context; }
+static ICRootViewController *_context;
++(ICRootViewController*)context { return _context; }
 -(void)keyboardWillShow:(NSNotification*)notification {
     NSDictionary *info  = notification.userInfo;
     NSValue      *value = info[UIKeyboardFrameEndUserInfoKey];
@@ -83,11 +85,14 @@ static ControlBarUIViewController *_context;
         @"sw":[NSString stringWithFormat:@"%d",(int)[[UIScreen mainScreen] bounds].size.width],
         @"sh":[NSString stringWithFormat:@"%d",(int)[[UIScreen mainScreen] bounds].size.height]
     } options:0 error:&error] encoding:NSUTF8StringEncoding];
-    NSLog(@"%@",rtv);
     return rtv;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    //[[ICEmojiTextureCache instance] add_image:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://spotcos.com/et/highfive.png"]]] for_name:@"HighFive"];
+    
+    _enqueued_button_presses = [NSMutableArray array];
+    
     _context = self;
     _last_update_time = [NSDate timeIntervalSinceReferenceDate];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:NULL];
@@ -98,9 +103,7 @@ static ControlBarUIViewController *_context;
     _keyboard_animation_duration = 0.5;
     
     [super viewDidAppear:animated];
-    /*
-    [self.view addSubview:((UnityAppController*)[UIApplication sharedApplication].delegate).unityView];
-    */
+    //[self.view addSubview:((UnityAppController*)[UIApplication sharedApplication].delegate).unityView];
     
 
     _root_activaton_textview = [[UITextView alloc] initWithFrame:CGRectMake(0,0,0,0)];
@@ -170,10 +173,6 @@ static ControlBarUIViewController *_context;
     [self recalculate_textview_layout];
 }
 
--(void)done_button_press {
-    NSLog(@"done");
-}
-
 -(void)update {
     NSTimeInterval current_time = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval delta_time = current_time-_last_update_time;
@@ -232,17 +231,19 @@ static bool __rentrant_lock = NO;
     int text_rows = [self text_rows];
     if (text_rows == 0) text_rows = 1;
     int textview_display_lines = text_rows > 3 ? 3 : text_rows;
-
+	
     [UIView animateWithDuration:0.1f animations:^(){
         _accessoryview_textview.frame = CGRectMake(0,0, _accessoryview_textview.frame.size.width, textview_display_lines * 25 + 6);
         _controlbar_mode_selection.frame = CGRectMake(0, _accessoryview_textview.frame.size.height, _controlbar_mode_selection.frame.size.width, _controlbar_mode_selection.frame.size.height);
-        if (_accessoryview_root.constraints.count > 0) {
+		
+		if (_accessoryview_root.constraints.count > 0) {
             ((NSLayoutConstraint*)[[_accessoryview_root constraints] objectAtIndex:0]).constant = _accessoryview_textview.frame.size.height + _controlbar_mode_selection.frame.size.height;
         }
         
         [_done_button setFrame:CGRectMake(_accessoryview_textview.frame.size.width, _accessoryview_textview.frame.origin.y, _accessoryview_root.frame.size.width-_accessoryview_textview.frame.size.width, _accessoryview_textview.frame.size.height)];
         
         _accessoryview_root.frame = CGRectMake(_accessoryview_root.frame.origin.x, _accessoryview_root.frame.origin.y, _accessoryview_root.frame.size.width, _accessoryview_textview.frame.size.height + _controlbar_mode_selection.frame.size.height);
+		
         _bottom_border.frame = CGRectMake(0, _accessoryview_root.frame.size.height-_bottom_border.frame.size.height, _bottom_border.frame.size.width, _bottom_border.frame.size.height);
         [_accessoryview_root.superview layoutIfNeeded];
     } completion:NULL];
@@ -276,22 +277,13 @@ static bool __rentrant_lock = NO;
 	[_root_activaton_textview reloadInputViews];
     [_accessoryview_textview reloadInputViews];
 	
-	[_emoji_keyboard i_cons:@[
-		[ICEmojiEntry cons_name:@"HighFive"],
-		[ICEmojiEntry cons_name:@"HighFive"],
-		[ICEmojiEntry cons_name:@"HighFive"],
-		[ICEmojiEntry cons_name:@"HighFive"],
-		[ICEmojiEntry cons_name:@"HighFive"],
-		[ICEmojiEntry cons_name:@"HighFive"],
-		[ICEmojiEntry cons_name:@"HighFive"],
-		[ICEmojiEntry cons_name:@"HighFive"],
-		[ICEmojiEntry cons_name:@"HighFive"]
-	]];
+	[_emoji_keyboard i_cons:[[ICEmojiTextureCache instance] get_all_emoji_names]];
 }
 
 -(void)toggle_native_control_ui:(BOOL)val {
     if (val) {
         [_root_activaton_textview becomeFirstResponder];
+		[_accessoryview_textview becomeFirstResponder];
         
         if (_keyboard_mode == KeyboardMode_Closed || _keyboard_mode == KeyboardMode_OpenToClose) {
             _keyboard_mode = KeyboardMode_CloseToOpen;
@@ -318,11 +310,25 @@ static bool __rentrant_lock = NO;
 	return [_emoji_text_renderer get_json];
 }
 
+-(void)enqueue_button_press:(NSString*)name {
+    [_enqueued_button_presses addObject:@{@"button":name}];
+}
+
+-(void)done_button_press {
+    [[ICRootViewController context] enqueue_button_press:@"close"];
+}
+
+-(void)delete_button_pressed {
+    NSLog(@"delete button pressed");
+}
+
+-(NSString*)getc_input_button_presses {
+    NSError *error;
+    NSData *json_data = [NSJSONSerialization dataWithJSONObject:_enqueued_button_presses options:0 error:&error];
+    [_enqueued_button_presses removeAllObjects];
+    return [[NSString alloc] initWithData:json_data encoding:NSUTF8StringEncoding];
+}
+
 -(BOOL)prefersStatusBarHidden { return YES; }
 
 @end
-
-/*
--(BOOL)canBecomeFirstResponder{ return YES; }
--(UIView *)inputAccessoryView{ return _accessoryview_root; }
-*/

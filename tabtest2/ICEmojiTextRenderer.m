@@ -29,7 +29,7 @@
 	[self render_text];
 }
 -(void)_insert_emoji_in_range:(NSRange)range with_name:(NSString*)name {
-	NSAttributedString *emoji = [NSAttributedString attributedStringWithAttachment:[[ICEmojiTextureCache instance] get_image_attachment_for_name:@"HighFive"]];
+	NSAttributedString *emoji = [NSAttributedString attributedStringWithAttachment:[[ICEmojiTextureCache instance] get_image_attachment_for_name:name]];
     [_str_buf replaceCharactersInRange:range withAttributedString:emoji];
 }
 -(void)replace_characters_in_range:(NSRange)range with_string:(NSString *)string {
