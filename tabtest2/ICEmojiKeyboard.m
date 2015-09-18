@@ -32,23 +32,23 @@
 	return [[[ICEmojiKeyboardKey alloc] init] i_cons_name:name];
 }
 -(ICEmojiKeyboardKey*)i_cons_name:(NSString *)name {
-	self.frame = CGRectMake(0, 0, 75, 75);
+	self.frame = CGRectMake(0, 0, 75, 45);
 	self.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
 	self.multipleTouchEnabled = NO;
 	_name = name;
 	
 	UIImage *image_data = [[ICEmojiTextureCache instance] get_image_for_name:name];
     _image = [[UIImageView alloc] initWithImage:image_data];
-	_image.frame = CGRectMake(0, 0, 50, 50);
-	_image.center = CGPointMake(self.frame.size.width/2,self.frame.size.height/2);
+	_image.frame = CGRectMake(0, 0, 30, 30);
+	_image.center = CGPointMake(self.frame.size.width/2,self.frame.size.height/2-7);
 	[self addSubview:_image];
 	
 	_label = [[UILabel alloc] init];
 	_label.frame = CGRectMake(0, 0, self.frame.size.width, 20);
-	_label.center = CGPointMake(_image.center.x, _image.center.y + 30);
+	_label.center = CGPointMake(_image.center.x, _image.center.y + 20);
 	_label.numberOfLines = 1;
 	_label.textAlignment = NSTextAlignmentCenter;
-	_label.font = [UIFont systemFontOfSize:14];
+	_label.font = [UIFont systemFontOfSize:10];
 	_label.text = name;
     
 	[self addSubview:_label];
@@ -89,10 +89,10 @@
 	self = [super init];
 	
 	self.view = [[UIView alloc] init];
-	[self.view setBounds:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 200)];
+	[self.view setBounds:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 120)];
 	[self.view setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]];
 	
-	_scroll_view = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 50, 0, 150)];
+	_scroll_view = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 30, 0, 90)];
 	[self.view addSubview:_scroll_view];
     _scroll_view.delaysContentTouches = NO;
 	
@@ -102,18 +102,18 @@
 -(void)i_cons:(NSArray*)emoji_names {
 	if (_keyboard_keys != NULL) return;
     
-    _add_dialogue_left_button = [[ICImageButton alloc] initWithFrame:CGRectMake(0, 3.75, 50, 42.5)];
+    _add_dialogue_left_button = [[ICImageButton alloc] initWithFrame:CGRectMake(0, 3.75, 30, 25)];
     [_add_dialogue_left_button set_image:[[UIImage imageNamed:@"ic_keyboard_add_dialogue_bubble"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     [_add_dialogue_left_button set_pressed:[Callback cons_id:self selector:@selector(add_dialogue_left_pressed)]];
     [self.view addSubview:_add_dialogue_left_button];
     
-    _add_dialogue_right_button = [[ICImageButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-50, 3.75, 50, 42.5)];
+    _add_dialogue_right_button = [[ICImageButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-30, 3.75, 30, 25)];
     [_add_dialogue_right_button set_image:[[UIImage imageNamed:@"ic_keyboard_add_dialogue_bubble"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
 	[_add_dialogue_right_button set_pressed:[Callback cons_id:self selector:@selector(add_dialogue_right_pressed)]];
     [_add_dialogue_right_button img_scale_x:-1 y:1];
     [self.view addSubview:_add_dialogue_right_button];
     
-    _delete_button = [[ICImageButton alloc] initWithFrame:CGRectMake(_add_dialogue_right_button.frame.origin.x-55, 10, 45, 30)];
+    _delete_button = [[ICImageButton alloc] initWithFrame:CGRectMake(_add_dialogue_right_button.frame.origin.x-35, 7, 27, 18 )];
     [_delete_button set_image:[[UIImage imageNamed:@"ic_keyboard_delete"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     [_delete_button set_pressed:[Callback cons_id:self selector:@selector(delete_pressed)]];
     [_delete_button set_color_neutral:[UIColor colorWithRed:0.39 green:0.39 blue:0.39 alpha:1] down:[UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1]];

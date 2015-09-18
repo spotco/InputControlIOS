@@ -77,8 +77,6 @@ static ICRootViewController *_context;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    //[[ICEmojiTextureCache instance] add_image:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://spotcos.com/et/highfive.png"]]] for_name:@"HighFive"];
-    
     _enqueued_button_presses = [NSMutableArray array];
     
     _context = self;
@@ -273,7 +271,7 @@ static bool __rentrant_lock = NO;
     if (val) {
         [_root_activaton_textview becomeFirstResponder];
 		[_accessoryview_textview becomeFirstResponder];
-        
+        [self controlbar_option_emojimode];
         if (_keyboard_mode == KeyboardMode_Closed || _keyboard_mode == KeyboardMode_OpenToClose) {
             _keyboard_mode = KeyboardMode_CloseToOpen;
         }
@@ -306,7 +304,12 @@ static bool __rentrant_lock = NO;
 }
 
 -(void)delete_button_pressed {
-    NSLog(@"delete button pressed");
+    NSRange selected_range = [_accessoryview_textview selectedRange];
+    if (selected_range.length == 0 && selected_range.location > 0) {
+        selected_range.location -= 1;
+        selected_range.length = 1;
+    }
+    [self textView:_accessoryview_textview shouldChangeTextInRange:selected_range replacementText:@""];
 }
 
 -(NSString*)getc_input_button_presses {

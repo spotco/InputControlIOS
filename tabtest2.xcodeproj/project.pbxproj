@@ -26,16 +26,6 @@
 		D5F7DE211BA8EB9D00417BD0 /* ic_keyboard_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = D5F7DE1F1BA8EB9D00417BD0 /* ic_keyboard_delete.png */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		7EF2568D1BA7FEE200A05397 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7EF2566B1BA7FEE100A05397 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7EF256721BA7FEE100A05397;
-			remoteInfo = tabtest2;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		7E1DB6661BABFF6100CF726C /* ICRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICRootViewController.h; sourceTree = "<group>"; };
 		7E1DB6671BABFF6100CF726C /* ICRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICRootViewController.m; sourceTree = "<group>"; };
@@ -49,7 +39,6 @@
 		7EF256811BA7FEE100A05397 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7EF256831BA7FEE100A05397 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7EF256861BA7FEE100A05397 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		7EF2568C1BA7FEE200A05397 /* tabtest2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tabtest2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EF2569C1BA7FF0A00A05397 /* TestDisplayUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDisplayUIViewController.h; sourceTree = "<group>"; };
 		7EF2569D1BA7FF0A00A05397 /* TestDisplayUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestDisplayUIViewController.m; sourceTree = "<group>"; };
 		7EF256A21BA8014000A05397 /* ICEmojiKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICEmojiKeyboard.h; sourceTree = "<group>"; };
@@ -75,13 +64,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7EF256891BA7FEE200A05397 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -97,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				7EF256731BA7FEE100A05397 /* tabtest2.app */,
-				7EF2568C1BA7FEE200A05397 /* tabtest2Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,24 +144,6 @@
 			productReference = 7EF256731BA7FEE100A05397 /* tabtest2.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7EF2568B1BA7FEE200A05397 /* tabtest2Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7EF256991BA7FEE200A05397 /* Build configuration list for PBXNativeTarget "tabtest2Tests" */;
-			buildPhases = (
-				7EF256881BA7FEE200A05397 /* Sources */,
-				7EF256891BA7FEE200A05397 /* Frameworks */,
-				7EF2568A1BA7FEE200A05397 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7EF2568E1BA7FEE200A05397 /* PBXTargetDependency */,
-			);
-			name = tabtest2Tests;
-			productName = tabtest2Tests;
-			productReference = 7EF2568C1BA7FEE200A05397 /* tabtest2Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -193,10 +156,6 @@
 					7EF256721BA7FEE100A05397 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = HG83NBEV8Q;
-					};
-					7EF2568B1BA7FEE200A05397 = {
-						CreatedOnToolsVersion = 6.3.1;
-						TestTargetID = 7EF256721BA7FEE100A05397;
 					};
 				};
 			};
@@ -214,7 +173,6 @@
 			projectRoot = "";
 			targets = (
 				7EF256721BA7FEE100A05397 /* tabtest2 */,
-				7EF2568B1BA7FEE200A05397 /* tabtest2Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -232,13 +190,6 @@
 				D5F7DE1A1BA8D4EA00417BD0 /* ic_bar_icon_mic.png in Resources */,
 				7EF256841BA7FEE100A05397 /* Images.xcassets in Resources */,
 				D5F7DE211BA8EB9D00417BD0 /* ic_keyboard_delete.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7EF2568A1BA7FEE200A05397 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,22 +212,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7EF256881BA7FEE200A05397 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		7EF2568E1BA7FEE200A05397 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7EF256721BA7FEE100A05397 /* tabtest2 */;
-			targetProxy = 7EF2568D1BA7FEE200A05397 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7EF256801BA7FEE100A05397 /* Main.storyboard */ = {
@@ -326,6 +262,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					COMPILE_WO_UNITY,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -366,6 +303,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = COMPILE_WO_UNITY;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -409,40 +347,6 @@
 			};
 			name = Release;
 		};
-		7EF2569A1BA7FEE200A05397 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = tabtest2Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tabtest2.app/tabtest2";
-			};
-			name = Debug;
-		};
-		7EF2569B1BA7FEE200A05397 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = tabtest2Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tabtest2.app/tabtest2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -460,15 +364,6 @@
 			buildConfigurations = (
 				7EF256971BA7FEE200A05397 /* Debug */,
 				7EF256981BA7FEE200A05397 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7EF256991BA7FEE200A05397 /* Build configuration list for PBXNativeTarget "tabtest2Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7EF2569A1BA7FEE200A05397 /* Debug */,
-				7EF2569B1BA7FEE200A05397 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

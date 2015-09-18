@@ -17,7 +17,17 @@
 static TestDisplayUIViewController *_inst;
 
 -(void)viewDidAppear:(BOOL)animated {
-    [[ICEmojiTextureCache instance] add_image:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://spotcos.com/et/highfive.png"]]] for_name:@"HighFive"];
+    [[ICEmojiTextureCache instance] add_image:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://spotcos.com/et/highfive.png"]]] for_name:@"HighFive1"];
+    [[ICEmojiTextureCache instance] add_image:[[ICEmojiTextureCache instance] get_image_for_name:@"HighFive1"] for_name:@"HighFive2"];
+    [[ICEmojiTextureCache instance] add_image:[[ICEmojiTextureCache instance] get_image_for_name:@"HighFive1"] for_name:@"HighFive3"];
+    [[ICEmojiTextureCache instance] add_image:[[ICEmojiTextureCache instance] get_image_for_name:@"HighFive1"] for_name:@"HighFive4"];
+    [[ICEmojiTextureCache instance] add_image:[[ICEmojiTextureCache instance] get_image_for_name:@"HighFive1"] for_name:@"HighFive5"];
+    [[ICEmojiTextureCache instance] add_image:[[ICEmojiTextureCache instance] get_image_for_name:@"HighFive1"] for_name:@"HighFive6"];
+    [[ICEmojiTextureCache instance] add_image:[[ICEmojiTextureCache instance] get_image_for_name:@"HighFive1"] for_name:@"HighFive7"];
+    [[ICEmojiTextureCache instance] add_image:[[ICEmojiTextureCache instance] get_image_for_name:@"HighFive1"] for_name:@"HighFive8"];
+    [[ICEmojiTextureCache instance] add_image:[[ICEmojiTextureCache instance] get_image_for_name:@"HighFive1"] for_name:@"HighFive9"];
+    [[ICEmojiTextureCache instance] add_image:[[ICEmojiTextureCache instance] get_image_for_name:@"HighFive1"] for_name:@"HighFive10"];
+    [[ICEmojiTextureCache instance] add_image:[[ICEmojiTextureCache instance] get_image_for_name:@"HighFive1"] for_name:@"HighFive11"];
     _inst = self;
     NSLog(@"testdisplayuiviewcontroller appear");
     self.view.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.8 alpha:1.0];
