@@ -1,11 +1,3 @@
-//
-//  ICRootViewController.h
-//  Unity-iPhone
-//
-//  Created by Shiny Yang on 9/8/15.
-//
-//
-
 #import <UIKit/UIKit.h>
 #import "ICEmojiKeyboard.h"
 #import "ICEmojiTextRenderer.h"

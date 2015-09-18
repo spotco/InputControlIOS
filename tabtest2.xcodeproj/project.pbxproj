@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7E1DB6681BABFF6100CF726C /* ICRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DB6671BABFF6100CF726C /* ICRootViewController.m */; };
+		7EB525C91BACA154005D2C2A /* ICUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB525C81BACA154005D2C2A /* ICUtil.m */; };
 		7EF256791BA7FEE100A05397 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256781BA7FEE100A05397 /* main.m */; };
 		7EF2567C1BA7FEE100A05397 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2567B1BA7FEE100A05397 /* AppDelegate.m */; };
 		7EF256821BA7FEE100A05397 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EF256801BA7FEE100A05397 /* Main.storyboard */; };
 		7EF256841BA7FEE100A05397 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EF256831BA7FEE100A05397 /* Images.xcassets */; };
 		7EF256871BA7FEE100A05397 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EF256851BA7FEE100A05397 /* LaunchScreen.xib */; };
-		7EF256931BA7FEE200A05397 /* tabtest2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256921BA7FEE200A05397 /* tabtest2Tests.m */; };
 		7EF2569E1BA7FF0A00A05397 /* TestDisplayUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF2569D1BA7FF0A00A05397 /* TestDisplayUIViewController.m */; };
 		7EF256A41BA8014000A05397 /* ICEmojiKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256A31BA8014000A05397 /* ICEmojiKeyboard.m */; };
 		7EF256AA1BA8160C00A05397 /* ICEmojiTextRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF256A91BA8160C00A05397 /* ICEmojiTextRenderer.m */; };
@@ -39,6 +39,8 @@
 /* Begin PBXFileReference section */
 		7E1DB6661BABFF6100CF726C /* ICRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICRootViewController.h; sourceTree = "<group>"; };
 		7E1DB6671BABFF6100CF726C /* ICRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICRootViewController.m; sourceTree = "<group>"; };
+		7EB525C71BACA154005D2C2A /* ICUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICUtil.h; sourceTree = "<group>"; };
+		7EB525C81BACA154005D2C2A /* ICUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICUtil.m; sourceTree = "<group>"; };
 		7EF256731BA7FEE100A05397 /* tabtest2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tabtest2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EF256771BA7FEE100A05397 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EF256781BA7FEE100A05397 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -48,8 +50,6 @@
 		7EF256831BA7FEE100A05397 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7EF256861BA7FEE100A05397 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		7EF2568C1BA7FEE200A05397 /* tabtest2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tabtest2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7EF256911BA7FEE200A05397 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7EF256921BA7FEE200A05397 /* tabtest2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tabtest2Tests.m; sourceTree = "<group>"; };
 		7EF2569C1BA7FF0A00A05397 /* TestDisplayUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDisplayUIViewController.h; sourceTree = "<group>"; };
 		7EF2569D1BA7FF0A00A05397 /* TestDisplayUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestDisplayUIViewController.m; sourceTree = "<group>"; };
 		7EF256A21BA8014000A05397 /* ICEmojiKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICEmojiKeyboard.h; sourceTree = "<group>"; };
@@ -89,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				7EF256751BA7FEE100A05397 /* tabtest2 */,
-				7EF2568F1BA7FEE200A05397 /* tabtest2Tests */,
 				7EF256741BA7FEE100A05397 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -129,6 +128,8 @@
 				D5F7DE1F1BA8EB9D00417BD0 /* ic_keyboard_delete.png */,
 				D56E8FF11BA9EA38008FA7C2 /* ICEmojiTextureCache.h */,
 				D56E8FF21BA9EA38008FA7C2 /* ICEmojiTextureCache.m */,
+				7EB525C71BACA154005D2C2A /* ICUtil.h */,
+				7EB525C81BACA154005D2C2A /* ICUtil.m */,
 			);
 			path = tabtest2;
 			sourceTree = "<group>";
@@ -138,23 +139,6 @@
 			children = (
 				7EF256771BA7FEE100A05397 /* Info.plist */,
 				7EF256781BA7FEE100A05397 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7EF2568F1BA7FEE200A05397 /* tabtest2Tests */ = {
-			isa = PBXGroup;
-			children = (
-				7EF256921BA7FEE200A05397 /* tabtest2Tests.m */,
-				7EF256901BA7FEE200A05397 /* Supporting Files */,
-			);
-			path = tabtest2Tests;
-			sourceTree = "<group>";
-		};
-		7EF256901BA7FEE200A05397 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7EF256911BA7FEE200A05397 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -208,7 +192,7 @@
 				TargetAttributes = {
 					7EF256721BA7FEE100A05397 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = W6R477JQ9S;
+						DevelopmentTeam = HG83NBEV8Q;
 					};
 					7EF2568B1BA7FEE200A05397 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -267,6 +251,7 @@
 			files = (
 				7E1DB6681BABFF6100CF726C /* ICRootViewController.m in Sources */,
 				7EF256AA1BA8160C00A05397 /* ICEmojiTextRenderer.m in Sources */,
+				7EB525C91BACA154005D2C2A /* ICUtil.m in Sources */,
 				7EF2567C1BA7FEE100A05397 /* AppDelegate.m in Sources */,
 				7EF256791BA7FEE100A05397 /* main.m in Sources */,
 				7EF2569E1BA7FF0A00A05397 /* TestDisplayUIViewController.m in Sources */,
@@ -280,7 +265,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EF256931BA7FEE200A05397 /* tabtest2Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +385,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					COMPILE_WO_UNITY,
+				);
 				INFOPLIST_FILE = tabtest2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

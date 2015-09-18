@@ -1,26 +1,14 @@
 #import "ICRootViewController.h"
-/*
+
+#ifndef COMPILE_WO_UNITY
 #import "UnityView.h"
 #import "UnityAppController+ViewHandling.h"
-*/
+#endif
+
 #import "ICButton.h"
 #import "ICEmojiTextureCache.h"
+#import "ICUtil.h"
 
-#define clampf(_val,_min,_max) (_val > _max ? _max : (_val < _min ? _min : _val))
-float bezier_val_for_t(float p0, float p1, float p2, float p3, float t) {
-	float cp0 = (1 - t)*(1 - t)*(1 - t);
-	float cp1 = 3 * t * (1-t)*(1-t);
-	float cp2 = 3 * t * t * (1 - t);
-	float cp3 = t * t * t;
-	return cp0 * p0 + cp1 * p1 + cp2 * p2 + cp3 * p3;
-}
-
-CGPoint bezier_point_for_t(CGPoint p0, CGPoint p1, CGPoint p2, CGPoint p3, float t) {
-	return CGPointMake(
-		bezier_val_for_t(p0.x, p1.x, p2.x, p3.x, t),
-		bezier_val_for_t(p0.y, p1.y, p2.y, p3.y, t)
-	);
-}
 
 typedef enum _KeyboardMode {
     KeyboardMode_Closed,
@@ -61,7 +49,7 @@ static ICRootViewController *_context;
     NSValue      *value = info[UIKeyboardFrameEndUserInfoKey];
     _input_view_screen_rect = [value CGRectValue];
     if ([notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue] != 0) {
-        _keyboard_animation_duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 2;
+        _keyboard_animation_duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     }
 }
 -(void)keyboardDidHide:(NSNotification*)notification {
@@ -103,8 +91,9 @@ static ICRootViewController *_context;
     _keyboard_animation_duration = 0.5;
     
     [super viewDidAppear:animated];
-    //[self.view addSubview:((UnityAppController*)[UIApplication sharedApplication].delegate).unityView];
-    
+#ifndef COMPILE_WO_UNITY
+    [self.view addSubview:((UnityAppController*)[UIApplication sharedApplication].delegate).unityView];
+#endif
 
     _root_activaton_textview = [[UITextView alloc] initWithFrame:CGRectMake(0,0,0,0)];
 	
@@ -233,18 +222,18 @@ static bool __rentrant_lock = NO;
     int textview_display_lines = text_rows > 3 ? 3 : text_rows;
 	
     [UIView animateWithDuration:0.1f animations:^(){
-        _accessoryview_textview.frame = CGRectMake(0,0, _accessoryview_textview.frame.size.width, textview_display_lines * 25 + 6);
-        _controlbar_mode_selection.frame = CGRectMake(0, _accessoryview_textview.frame.size.height, _controlbar_mode_selection.frame.size.width, _controlbar_mode_selection.frame.size.height);
-		
+        view_set_height(_accessoryview_textview, textview_display_lines * 25 + 6);
+        view_set_y(_controlbar_mode_selection, _accessoryview_textview.frame.size.height);
 		if (_accessoryview_root.constraints.count > 0) {
             ((NSLayoutConstraint*)[[_accessoryview_root constraints] objectAtIndex:0]).constant = _accessoryview_textview.frame.size.height + _controlbar_mode_selection.frame.size.height;
         }
+        view_set_x(_done_button, _accessoryview_textview.frame.size.width);
+        view_set_y(_done_button, _accessoryview_textview.frame.origin.y);
+        view_set_width(_done_button, _accessoryview_root.frame.size.width-_accessoryview_textview.frame.size.width);
+        view_set_height(_done_button, _accessoryview_textview.frame.size.height);
+        view_set_height(_accessoryview_root, _accessoryview_textview.frame.size.height + _controlbar_mode_selection.frame.size.height);
+        view_set_y(_bottom_border, _accessoryview_root.frame.size.height-_bottom_border.frame.size.height);
         
-        [_done_button setFrame:CGRectMake(_accessoryview_textview.frame.size.width, _accessoryview_textview.frame.origin.y, _accessoryview_root.frame.size.width-_accessoryview_textview.frame.size.width, _accessoryview_textview.frame.size.height)];
-        
-        _accessoryview_root.frame = CGRectMake(_accessoryview_root.frame.origin.x, _accessoryview_root.frame.origin.y, _accessoryview_root.frame.size.width, _accessoryview_textview.frame.size.height + _controlbar_mode_selection.frame.size.height);
-		
-        _bottom_border.frame = CGRectMake(0, _accessoryview_root.frame.size.height-_bottom_border.frame.size.height, _bottom_border.frame.size.width, _bottom_border.frame.size.height);
         [_accessoryview_root.superview layoutIfNeeded];
     } completion:NULL];
     
@@ -287,7 +276,6 @@ static bool __rentrant_lock = NO;
         
         if (_keyboard_mode == KeyboardMode_Closed || _keyboard_mode == KeyboardMode_OpenToClose) {
             _keyboard_mode = KeyboardMode_CloseToOpen;
-            _keyboard_animation_t = 0;
         }
         
     } else {
@@ -296,7 +284,6 @@ static bool __rentrant_lock = NO;
         
         if (_keyboard_mode == KeyboardMode_Open || _keyboard_mode == KeyboardMode_CloseToOpen) {
             _keyboard_mode = KeyboardMode_OpenToClose;
-            _keyboard_animation_t = _keyboard_animation_duration;
         }
     }
 }
